@@ -74,13 +74,13 @@
                                 else if (value < 300) {
                                     cost = fedexBase;
                                 } else {
-                                    cost = fedexRate * ceil(((value - 300) / 100.00)) + fedexBase;
+                                    cost = fedexRate * Math.ceil(((value - 300) / 100.00)) + fedexBase;
                                 }
                             } else {
                                 if (value < 100.01) {
                                     cost = 0;
                                 } else {
-                                    var costA = fedexRate * ceil((value - 100) / 100.00);
+                                    var costA = fedexRate * Math.ceil((value - 100) / 100.00);
                                     cost = 9.07 * weight;
                                     if (costA > cost) {
                                         cost = costA;
@@ -91,7 +91,7 @@
                             if(value <= 100){
                                 cost =0;
                             }else{
-                                cost = ceil((value-100)/100)*4;
+                                cost = Math.ceil((value-100)/100)*4;
                             }
                         }
                         //format the cost to 2 decimal places
