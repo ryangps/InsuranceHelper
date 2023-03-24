@@ -1,2 +1,2 @@
 # InsuranceHelper
-Estimates the cost of insuring Fedex and UPS packages.
+Estimates Fedex and UPS declared value insurance rates.
