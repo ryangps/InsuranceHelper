@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Insurance Helper</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1>Quick Insurance Calculator</h1>
+                <form name="estForm" class="form-inline" oninput="calculate()">
+                    <div class="form-group">
+                        <label for="shipper">Freight Carrier</label>
+                        <select class="form-control" id="shipper" name="shipper">
+                            <option value="fedex">Fedex</option>
+                            <option value="ups">UPS</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="int">Domestic or International</label>
+                        <select class="form-control" id="int" name="int">
+                            <option value="domestic">Domestic</option>
+                            <option value="international">International</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Weight</span>
+                            </div>
+                            <input class="form-control" type="text" id="weight" name="weight" placeholder="Weight">
+                            <div class="input-group-append">
+                                <span class="input-group-text">lbs</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Value</span>
+                            </div>
+                            <input class="form-control" type="text" id="value" name="value" placeholder="Value">
+                            <div class="input-group-append">
+                                <span class="input-group-text">USD</span>
+                            </div>
+                        </div>
+                    </div>
+                    <h3> Estimated Insurance Cost: <span id="cost"></span></h3>
+                </form>
+
+                <script type="text/javascript">
+                    function calculate() {
+                        var shipper = document.getElementById("shipper").value;
+                        var int = document.getElementById("int").value;
+                        var weight = document.getElementById("weight").value;
+                        var value = document.getElementById("value").value;
+                        var cost = 0;
+                        var fedexBase = 3.9;
+                        var fedexRate = 1.30;
+                        var upsBase = 4.00;
+                        if (shipper == "fedex") {
+                            if (int == "domestic") {
+                                if (value < 100.01) {
+                                    cost = 0;
+                                }
+                                else if (value < 300) {
+                                    cost = fedexBase;
+                                } else {
+                                    cost = fedexRate * ceil(((value - 300) / 100.00)) + fedexBase;
+                                }
+                            } else {
+                                if (value < 100.01) {
+                                    cost = 0;
+                                } else {
+                                    var costA = fedexRate * ceil((value - 100) / 100.00);
+                                    cost = 9.07 * weight;
+                                    if (costA > cost) {
+                                        cost = costA;
+                                    }
+                                }
+                            }
+                        } else {
+                            if(value <= 100){
+                                cost =0;
+                            }else{
+                                cost = ceil((value-100)/100)*4;
+                            }
+                        }
+                        //format the cost to 2 decimal places
+                        cost = cost.toFixed(2);
+                        document.getElementById("cost").innerHTML = "$" + cost;
+                    }
+                </script>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
